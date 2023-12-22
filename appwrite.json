@@ -1,0 +1,26 @@
+{
+    "projectId": "6583b45e37f6c7eaeb2c",
+    "projectName": "giga-upload",
+    "buckets": [
+        {
+            "$id": "files",
+            "$createdAt": "2023-12-22T04:40:33.588+00:00",
+            "$updatedAt": "2023-12-22T05:24:09.109+00:00",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")"
+            ],
+            "fileSecurity": false,
+            "name": "files",
+            "enabled": true,
+            "maximumFileSize": 30000000,
+            "allowedFileExtensions": [
+                "png",
+                "jpg"
+            ],
+            "compression": "none",
+            "encryption": true,
+            "antivirus": true
+        }
+    ]
+}
