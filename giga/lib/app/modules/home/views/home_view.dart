@@ -2,6 +2,7 @@ import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:giga/app/modules/home/views/loading_view.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../appwrite.dart';
@@ -14,14 +15,15 @@ class HomeView extends GetView {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
-        init: HomeController(),
-        builder: (controller) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Giga Upload'),
-              centerTitle: true,
-            ),
-            body: FutureBuilder(
+      init: HomeController(),
+      builder: (controller) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Giga Upload'),
+            centerTitle: true,
+          ),
+          body: RefreshIndicator(
+            child: FutureBuilder(
               future: StorageProvider().getBucketFiles(bucketId: bucketId),
               builder:
                   (BuildContext context, AsyncSnapshot<FileList> snapshot) {
@@ -49,33 +51,36 @@ class HomeView extends GetView {
                   );
                 }
 
-                return const Center(
-                  child: Text('Loading...'),
-                );
+                return const LoadingView();
               },
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                // upload
-                final imagePicker = ImagePicker();
-                final image =
-                    await imagePicker.pickImage(source: ImageSource.gallery);
+            onRefresh: () async {
+              controller.update();
+            },
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              // upload
+              final imagePicker = ImagePicker();
+              final image =
+                  await imagePicker.pickImage(source: ImageSource.gallery);
 
-                if (image != null) {
-                  StorageProvider()
-                      .upload(
-                          bucketId: bucketId,
-                          fileData: await image.readAsBytes(),
-                          filename: image.name)
-                      .then((value) {
-                    Get.snackbar('Upload completed', value.name);
-                    controller.update();
-                  });
-                }
-              },
-              child: const Icon(Icons.upload),
-            ),
-          );
-        });
+              if (image != null) {
+                StorageProvider()
+                    .upload(
+                        bucketId: bucketId,
+                        fileData: await image.readAsBytes(),
+                        filename: image.name)
+                    .then((value) {
+                  Get.snackbar('Upload completed', value.name);
+                  controller.update();
+                });
+              }
+            },
+            child: const Icon(Icons.upload),
+          ),
+        );
+      },
+    );
   }
 }
