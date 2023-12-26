@@ -46,6 +46,9 @@ class HomeView extends GetView {
                       return ImageThumbnailView(
                         bucketId: bucketId,
                         id: files[index].$id,
+                        onTap: () {
+                          // open image preview page
+                        },
                       );
                     },
                   );

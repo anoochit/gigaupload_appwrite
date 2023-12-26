@@ -7,11 +7,13 @@ import 'package:get/get.dart';
 import '../../../data/providers/storage_provider.dart';
 
 class ImageThumbnailView extends GetView {
-  const ImageThumbnailView({Key? key, required this.bucketId, required this.id})
+  const ImageThumbnailView(
+      {Key? key, required this.bucketId, required this.id, required this.onTap})
       : super(key: key);
 
   final String bucketId;
   final String id;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +29,12 @@ class ImageThumbnailView extends GetView {
             elevation: 0.1,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             color: Theme.of(context).colorScheme.onInverseSurface,
-            child: Image.memory(
-              snapshot.data!,
-              fit: BoxFit.cover,
+            child: InkWell(
+              onTap: () => onTap(),
+              child: Image.memory(
+                snapshot.data!,
+                fit: BoxFit.cover,
+              ),
             ),
           );
         }
