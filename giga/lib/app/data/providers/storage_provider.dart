@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:giga/appwrite.dart';
 
@@ -54,11 +55,19 @@ class StorageProvider {
   /// Uploads a file to storage.
   ///
   /// Throws a [StorageException] if an error occurs during upload.
-  upload({
+  Future<File> upload({
     required String bucketId,
     required Uint8List fileData,
     required String filename,
   }) async {
-    // TODO: Implement upload logic
+    try {
+      return await storage.createFile(
+        bucketId: bucketId,
+        fileId: ID.unique(),
+        file: InputFile.fromBytes(bytes: fileData, filename: filename),
+      );
+    } on Exception catch (e) {
+      throw StorageException('Failed to upload files: $e');
+    }
   }
 }
