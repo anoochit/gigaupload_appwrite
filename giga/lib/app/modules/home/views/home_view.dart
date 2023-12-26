@@ -67,8 +67,11 @@ class HomeView extends GetView {
               final imagePicker = ImagePicker();
 
               // pick image
-              final image =
-                  await imagePicker.pickImage(source: ImageSource.gallery);
+              final image = await imagePicker.pickImage(
+                source: ImageSource.gallery,
+                maxWidth: 720,
+                imageQuality: 50,
+              );
 
               if (image != null) {
                 StorageProvider()

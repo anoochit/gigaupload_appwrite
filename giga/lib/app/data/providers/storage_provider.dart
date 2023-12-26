@@ -43,13 +43,15 @@ class StorageProvider {
   /// Retrieves a thumbnail representation of a file.
   ///
   /// Throws a [StorageException] if an error occurs during retrieval.
-  getFileThumbnail({
+  Future<Uint8List> getFileThumbnail({
     required String bucketId,
     required String fileId,
-    required int width,
-    required int height,
   }) async {
-    // TODO: Implement thumbnail retrieval logic
+    return await storage.getFilePreview(
+      bucketId: bucketId,
+      fileId: fileId,
+      width: 512,
+    );
   }
 
   /// Uploads a file to storage.

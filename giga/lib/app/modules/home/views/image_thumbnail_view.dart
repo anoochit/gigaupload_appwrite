@@ -18,7 +18,8 @@ class ImageThumbnailView extends GetView {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: StorageProvider().getFile(bucketId: bucketId, fileId: id),
+      future:
+          StorageProvider().getFileThumbnail(bucketId: bucketId, fileId: id),
       builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
         if (snapshot.hasError) {
           return const Text('Error');
