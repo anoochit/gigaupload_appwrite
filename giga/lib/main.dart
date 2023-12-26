@@ -11,6 +11,7 @@ void main() {
   runApp(
     DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "Application",
         theme: ThemeData(
           colorScheme: lightDynamic,
