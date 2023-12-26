@@ -3,7 +3,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:giga/app/data/providers/storage_provider.dart';
+
+import '../../../data/providers/storage_provider.dart';
 
 class ImageThumbnailView extends GetView {
   const ImageThumbnailView({Key? key, required this.bucketId, required this.id})
@@ -23,8 +24,9 @@ class ImageThumbnailView extends GetView {
 
         if (snapshot.hasData) {
           return Card(
-            elevation: 0.0,
+            elevation: 0.1,
             clipBehavior: Clip.antiAliasWithSaveLayer,
+            color: Theme.of(context).colorScheme.onInverseSurface,
             child: Image.memory(
               snapshot.data!,
               fit: BoxFit.cover,
@@ -32,9 +34,10 @@ class ImageThumbnailView extends GetView {
           );
         }
 
-        return const Card(
-          elevation: 0.0,
+        return Card(
+          elevation: 0.1,
           clipBehavior: Clip.antiAliasWithSaveLayer,
+          color: Theme.of(context).colorScheme.onInverseSurface,
         );
       },
     );

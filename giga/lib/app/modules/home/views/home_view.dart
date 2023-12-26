@@ -2,13 +2,13 @@ import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:giga/app/modules/home/views/loading_view.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../appwrite.dart';
 import '../../../data/providers/storage_provider.dart';
 import '../controllers/home_controller.dart';
 import 'image_thumbnail_view.dart';
+import 'loading_view.dart';
 
 class HomeView extends GetView {
   const HomeView({Key? key}) : super(key: key);
@@ -62,6 +62,8 @@ class HomeView extends GetView {
             onPressed: () async {
               // upload
               final imagePicker = ImagePicker();
+
+              // pick image
               final image =
                   await imagePicker.pickImage(source: ImageSource.gallery);
 
@@ -72,7 +74,6 @@ class HomeView extends GetView {
                         fileData: await image.readAsBytes(),
                         filename: image.name)
                     .then((value) {
-                  Get.snackbar('Upload completed', value.name);
                   controller.update();
                 });
               }

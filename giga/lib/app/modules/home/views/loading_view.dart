@@ -13,9 +13,8 @@ class LoadingView extends GetView {
       ),
       itemBuilder: (context, index) => Card(
         elevation: 0.1,
-        child: Container(
-          color: Colors.grey.shade200,
-        ),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        color: Theme.of(context).colorScheme.onInverseSurface,
       ),
     );
   }
