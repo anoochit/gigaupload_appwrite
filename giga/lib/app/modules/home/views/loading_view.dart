@@ -14,7 +14,6 @@ class LoadingView extends GetView {
       itemBuilder: (context, index) => Card(
         elevation: 0.1,
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        color: Theme.of(context).colorScheme.onInverseSurface,
       ),
     );
   }
